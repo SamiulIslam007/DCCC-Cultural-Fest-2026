@@ -50,9 +50,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ targetDate }) => {
   ];
 
   const infoItems = [
-    { icon: "📅", label: "Date", value: "July 17–18, 2026" },
+    { icon: "📅", label: "Date", value: "September 07-14, 2026" },
     { icon: "📍", label: "Venue", value: "Dhaka College, Dhaka" },
-    { icon: "🎭", label: "Segments", value: "12 Cultural Categories" },
+    { icon: "🎭", label: "Segments", value: "6 Cultural Categories" },
   ];
 
   return (
@@ -65,7 +65,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ targetDate }) => {
               Event Starts In
             </p>
             <p className="text-white font-black text-lg tracking-wide">
-              July 17, 2026
+              September 07, 2026
             </p>
           </div>
 

@@ -13,7 +13,7 @@ export const Hero: React.FC = () => {
 
       <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 w-full max-w-5xl mx-auto h-full pt-16 md:pt-24 pb-8">
         <p className="text-[10px] sm:text-xs font-black tracking-[0.4em] text-[#C8963E] uppercase mb-3 md:mb-4 drop-shadow-[0_0_8px_rgba(200,150,62,0.3)]">
-          OFFICIAL NOTIFICATION
+          DCCC PRESENTS
         </p>
 
         <div className="flex flex-col items-center mb-4 md:mb-6 select-none">
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
                 EVENT DATE
               </p>
               <p className="text-white font-semibold text-xs sm:text-base tracking-wide mt-0.5">
-                17 – 18 July 2026
+                07 – 14 September 2026
               </p>
             </div>
           </div>

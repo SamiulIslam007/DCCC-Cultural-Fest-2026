@@ -16,7 +16,7 @@ export default function Home() {
         <div id="home" className="absolute top-0 w-full" />
 
         <Hero />
-        <AboutSection targetDate="2026-07-17T09:00:00" />
+        <AboutSection targetDate="2026-09-07T09:00:00" />
         <VenueSection />
         <SegmentsSection />
         <OrganizersSection />

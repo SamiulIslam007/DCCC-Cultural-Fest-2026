@@ -144,13 +144,6 @@ export const Navbar: React.FC = () => {
           <div className="h-[1px] bg-white/10 my-1" />
           <div className="flex items-center gap-3">
             <a
-              href="/login"
-              onClick={() => setIsOpen(false)}
-              className="flex-1 text-center py-2 text-[11px] font-bold tracking-widest text-white border border-white/20 rounded-full"
-            >
-              LOGIN
-            </a>
-            <a
               href="/register"
               onClick={() => setIsOpen(false)}
               className="flex-1 text-center py-2 text-[11px] font-black tracking-widest bg-white text-black rounded-full"
