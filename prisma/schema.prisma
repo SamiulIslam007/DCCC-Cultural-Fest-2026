@@ -1,0 +1,73 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+// ── Enums ─────────────────────────────────────────────────────────────────────
+
+enum SegmentType {
+    ONLINE
+    OFFLINE
+}
+
+enum RegistrationStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
+enum EmailType {
+    INITIAL_REGISTRATION_CONFIRMATION
+    TICKET_DELIVERY
+}
+
+enum EmailStatus {
+    SENT
+    FAILED
+}
+
+// ── Models ────────────────────────────────────────────────────────────────────
+
+/// Cultural event segments (seeded via prisma/seed.ts)
+model Segment {
+    id            String         @id
+    name          String
+    subtitle      String         @default("")
+    type          SegmentType
+    fee           Int            @default(50)
+    registrations Registration[]
+}
+
+/// Participant registration record
+model Registration {
+    id                 String             @id // Invoice ID e.g. REV2026-A3X9Q7
+    fullName           String
+    email              String
+    phone              String
+    institution        String
+    classOrYear        String
+    additionalNote     String?            // Optional note from participant
+    bkashOrNogodNumber String             // Payment sender's mobile number
+    trxId              String             @unique // Transaction ID (must be unique)
+    screenshotUrl      String             // URL to the payment screenshot
+    totalAmount        Float              // Calculated: segments.length × fee
+    status             RegistrationStatus @default(PENDING)
+    segments           Segment[]          // M2M — implicit join table
+    emailLogs          EmailLog[]         // 1-to-Many
+    createdAt          DateTime           @default(now())
+    updatedAt          DateTime           @updatedAt
+}
+
+/// Email send attempt log for tracking and retry functionality
+model EmailLog {
+    id             String       @id @default(cuid())
+    registrationId String
+    emailType      EmailType
+    status         EmailStatus
+    errorMsg       String?      // Populated when status = FAILED
+    sentAt         DateTime     @default(now())
+    registration   Registration @relation(fields: [registrationId], references: [id])
+}

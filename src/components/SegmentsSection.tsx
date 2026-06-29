@@ -1,105 +1,16 @@
 "use client";
-
 import React, { useState } from "react";
+import { ALL_SEGMENTS } from "@/lib/segments-data";
 
-const SEGMENTS = [
-  {
-    id: "recitation",
-    title: "আবৃত্তি",
-    titleEn: "Poetry Recitation",
-    description:
-      "Express the soul of Bengali poetry through powerful recitation. From Rabindranath to Nazrul, let every verse echo with emotion.",
-    accent: "#C05A46",
-  },
-  {
-    id: "singing",
-    title: "সংগীত",
-    titleEn: "Vocal Singing",
-    description:
-      "From classical Rabindra Sangeet to modern Bangla music — showcase your vocal artistry on the grandest stage.",
-    accent: "#C8963E",
-  },
-  {
-    id: "dance",
-    title: "নৃত্য",
-    titleEn: "Folk Dance",
-    description:
-      "Classical Bharatanatyam, folk Bihu, modern fusion — embody the rhythm of Bangladesh through movement and grace.",
-    accent: "#2D5A27",
-  },
-  {
-    id: "drama",
-    title: "নাটক",
-    titleEn: "Drama & Theatre",
-    description:
-      "Bring stories to life on stage through powerful acting, direction, and set design. Theatre is where culture breathes.",
-    accent: "#C05A46",
-  },
-  {
-    id: "painting",
-    title: "চিত্রকলা",
-    titleEn: "Art & Painting",
-    description:
-      "Canvas meets creativity — express the spirit of Bengal through brushstrokes, sketches, and visual storytelling.",
-    accent: "#C8963E",
-  },
-  {
-    id: "photography",
-    title: "আলোকচিত্র",
-    titleEn: "Photography",
-    description:
-      "Capture the unseen beauty of Bangladesh — from rural landscapes to urban life — through your unique lens.",
-    accent: "#2D5A27",
-  },
-  {
-    id: "debate",
-    title: "বিতর্ক",
-    titleEn: "Debate Competition",
-    description:
-      "Sharpen your intellect and rhetoric — defend your arguments with logic, passion, and well-crafted words.",
-    accent: "#C05A46",
-  },
-  {
-    id: "quiz",
-    title: "কুইজ",
-    titleEn: "Heritage Quiz",
-    description:
-      "Test your knowledge across history, science, literature, and Bengali heritage in this high-stakes showdown.",
-    accent: "#C8963E",
-  },
-  {
-    id: "shortfilm",
-    title: "চলচ্চিত্র",
-    titleEn: "Short Film",
-    description:
-      "Tell compelling stories through the lens — from scripting to cinematography, showcase your filmmaking brilliance.",
-    accent: "#2D5A27",
-  },
-  {
-    id: "essay",
-    title: "প্রবন্ধ",
-    titleEn: "Essay Writing",
-    description:
-      "Pen your thoughts on culture, heritage, and contemporary issues in beautifully articulated Bengali prose.",
-    accent: "#C05A46",
-  },
-  {
-    id: "band",
-    title: "ব্যান্ড সংগীত",
-    titleEn: "Band Music",
-    description:
-      "Rock the stage with your band — from Bangla rock to fusion — amplify the spirit of youth through live music.",
-    accent: "#C8963E",
-  },
-  {
-    id: "extempore",
-    title: "বক্তৃতা",
-    titleEn: "Extempore Speech",
-    description:
-      "Speak your mind with zero preparation — test your wit, spontaneity, and command of language under pressure.",
-    accent: "#2D5A27",
-  },
-];
+const ACCENT_COLORS = ["#C05A46", "#C8963E", "#2D5A27"];
+
+const SEGMENTS = ALL_SEGMENTS.map((seg, index) => ({
+  id: seg.id,
+  title: `${seg.emoji} ${seg.name}`,
+  titleEn: `${seg.subtitle} (${seg.type})`,
+  description: seg.description,
+  accent: ACCENT_COLORS[index % ACCENT_COLORS.length],
+}));
 
 export const SegmentsSection: React.FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);

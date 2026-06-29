@@ -171,10 +171,18 @@ export const Footer: React.FC = () => {
       <div className="border-t border-white/[0.06] py-5 px-4">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/25 text-[10px] tracking-wide">
-            © 2026 Dhaka College Cultural Club. All rights reserved.
+            © 2026 Dhaka College Cultural Club (DCCC) — Revolution 2.0. All Rights Reserved.
           </p>
-          <p className="text-white/25 text-[10px] tracking-wide">
-            4th DCCC National Cultural Fiesta · Est. 2021
+          <p className="text-white/25 text-[10px] tracking-wide text-right">
+            Developed by{" "}
+            <a
+              href="https://samiul.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C8963E] hover:text-white transition-colors font-semibold"
+            >
+              Samiul Islam
+            </a>
           </p>
         </div>
       </div>
