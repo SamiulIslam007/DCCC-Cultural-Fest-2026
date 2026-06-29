@@ -62,6 +62,7 @@ export default function AdminDashboard() {
   const [segmentFilter, setSegmentFilter] = useState("");
   const [actionLoading, setActionLoading] = useState<string>("");
   const [retryLoading, setRetryLoading] = useState<string>("");
+  const [resendLoading, setResendLoading] = useState<string>("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const fetchRegistrations = useCallback(async () => {
@@ -106,6 +107,29 @@ export default function AdminDashboard() {
       }
     } finally {
       setActionLoading("");
+    }
+  }
+
+  async function handleResendTicket(invoiceId: string) {
+    setResendLoading(invoiceId);
+    try {
+      const res = await fetch("/api/admin/resend-ticket", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceId }),
+      });
+      const data = (await res.json()) as { success: boolean; error?: string; message?: string };
+
+      if (data.success) {
+        alert(`✅ ${data.message ?? "Ticket email sent successfully!"}`);
+        await fetchRegistrations();
+      } else {
+        alert(`❌ ${data.error ?? "Failed to resend ticket email."}`);
+      }
+    } catch {
+      alert("❌ An unexpected error occurred while resending the ticket.");
+    } finally {
+      setResendLoading("");
     }
   }
 
@@ -327,6 +351,7 @@ export default function AdminDashboard() {
                   const isExpanded = expandedId === reg.id;
                   const approveLoading = actionLoading === `${reg.id}-APPROVE`;
                   const rejectLoading = actionLoading === `${reg.id}-REJECT`;
+                  const resendTicketLoading = resendLoading === reg.id;
 
                   return (
                     <React.Fragment key={reg.id}>
@@ -429,8 +454,15 @@ export default function AdminDashboard() {
                               </button>
                             )}
 
-                            {reg.status === "APPROVED" && !failedLog && (
-                              <span className="text-green-400/50 text-[9px]">✓ Done</span>
+                            {reg.status === "APPROVED" && (
+                              <button
+                                onClick={() => handleResendTicket(reg.id)}
+                                disabled={!!resendLoading || !!retryLoading}
+                                title="Resend ticket/invoice email to participant"
+                                className="px-2.5 py-1 bg-blue-600/20 border border-blue-500/40 text-blue-300 text-[9px] font-black uppercase hover:bg-blue-600/40 hover:border-blue-400/60 disabled:opacity-50 transition-all duration-200 whitespace-nowrap"
+                              >
+                                {resendTicketLoading ? "..." : "🎟️ Resend Ticket"}
+                              </button>
                             )}
                             {reg.status === "REJECTED" && !failedLog && (
                               <span className="text-red-400/50 text-[9px]">✕ Rejected</span>
